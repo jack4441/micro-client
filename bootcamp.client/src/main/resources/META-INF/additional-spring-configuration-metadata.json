@@ -1,0 +1,5 @@
+{"properties": [{
+  "name": "configserver.import",
+  "type": "java.lang.String",
+  "description": "A description for 'configserver.import'"
+}]}
