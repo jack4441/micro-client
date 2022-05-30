@@ -2,6 +2,7 @@ package com.nttdata.bootcamp.client.service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -69,10 +70,18 @@ public class ServiceClient implements IServiceClient {
 	}
 	
 	@Override
-	public Mono<Client> clientFindReceiver(String bank_account) {
+	public Mono<Client> clientFindSingleReceiver(String destination) {
 		// TODO Auto-generated method stub
-		return clientdao.findAll().filter(value-> value.getDetail().stream().map(valueDetail-> 
-			valueDetail.getBank_account().equals(bank_account)).count()>0).single();
+		return clientdao.findAll().filter(value-> value.getDetail().stream().filter(valueDetail-> 
+			valueDetail.getBank_account().equals(destination)
+			|| valueDetail.getIddetail().equals(destination)).count()>0).singleOrEmpty();
+	}
+	
+	private Flux<Client> clientFindReceiver(String destination) {
+		// TODO Auto-generated method stub
+		return clientdao.findAll().filter(value-> value.getDetail().stream().filter(valueDetail-> 
+			valueDetail.getBank_account().equals(destination)
+			|| valueDetail.getIddetail().equals(destination)).count()>0);
 	}
 	
 	@CircuitBreaker(name = "myCircuitBreaker", fallbackMethod = "fallbacksave")
@@ -80,9 +89,9 @@ public class ServiceClient implements IServiceClient {
 	@Override
 	public Mono<Client> clientSave(RequestClientDto request) {	
 	
-		request.getProduct().setIddetail(request.getProduct().getId()+request.getDni());
+		request.getProduct().setIddetail(UUID.randomUUID().toString());
 		log.info("Entrando al metodo clientSave en el servicio ServiceClient");
-		var listcli = clientFindAll().collectList().block();
+		var listcli = clientFindReceiver(request.getProduct().getBank_account()).collectList().block();
 		var cli = clientdao.findByDni(request.getDni()).block();
 		var result = false;
 		if(cli==null)
@@ -147,5 +156,5 @@ public class ServiceClient implements IServiceClient {
     	log.info("message Error: " + e.getMessage());
 		return Mono.just(Client.builder().build());
 	}
-
+	
 }

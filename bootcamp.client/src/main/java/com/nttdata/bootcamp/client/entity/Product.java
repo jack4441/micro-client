@@ -1,15 +1,12 @@
 package com.nttdata.bootcamp.client.entity;
 
 import java.io.Serializable;
-
-import org.springframework.data.mongodb.core.mapping.Document;
+import java.util.List;
 
 import lombok.Data;
-@Document("client")
+
 @Data
-public class Product implements Serializable{/**
-	 * 
-	 */
+public class Product implements Serializable{
 	private static final long serialVersionUID = -7955936580657429664L;
 
 	private String iddetail;
@@ -27,5 +24,11 @@ public class Product implements Serializable{/**
 	private String expiration_date;
 	private String state;	
 	private double counter_transaction;
+	private double balance_day;
+	private String deposit_date;
+	private double limit_transaction;
+	private String payment_date;
+	private double count_overdue_installments;
+	private List<Accounts> bank_accounts;
 	
 }

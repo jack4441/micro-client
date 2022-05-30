@@ -56,9 +56,6 @@ public class ControllerClient {
 		return serviceClient.clientFindOne(id);
 	}
 	
-	@CircuitBreaker(name = "myCircuitBreaker", fallbackMethod = "fallback")
-	@TimeLimiter(name = "timelimit")
-	@Retry(name = "myRetry")
 	@GetMapping("/findcashorcredit/{id}/{bank_account}/{credit_card}")
 	public Mono<ResponseAvailableBalance> getCashOrCredit(@PathVariable String id
 			, @PathVariable String bank_account, @PathVariable String credit_card)
@@ -90,11 +87,11 @@ public class ControllerClient {
 		return serviceClient.clientDelete(id);
 	}
 	
-	@GetMapping(path = "/getReceiver/{bank_account}", produces = MediaType.APPLICATION_JSON_VALUE)
-	public Mono<Client> clientFindReceiver(String bank_account)
+	@GetMapping(path = "/getReceiver/{destination}", produces = MediaType.APPLICATION_JSON_VALUE)
+	public Mono<Client> clientFindReceiver(@PathVariable String destination)
 	{
 		log.info("Entrando al metodo clientFindReceiver en el controller client");
-		return serviceClient.clientFindReceiver(bank_account);
+		return serviceClient.clientFindSingleReceiver(destination);
 	}
 	
 }
