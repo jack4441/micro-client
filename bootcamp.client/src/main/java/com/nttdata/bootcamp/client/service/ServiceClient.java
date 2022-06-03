@@ -8,7 +8,6 @@ import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.fasterxml.jackson.annotation.JacksonInject.Value;
 import com.nttdata.bootcamp.client.dao.ClientRepository;
 import com.nttdata.bootcamp.client.entity.Client;
 import com.nttdata.bootcamp.client.entity.Product;

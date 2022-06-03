@@ -24,8 +24,11 @@ import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Component;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonMappingException;
 import com.nttdata.bootcamp.client.dao.ClientRepository;
 import com.nttdata.bootcamp.client.entity.Client;
+import com.nttdata.bootcamp.client.entity.Product;
 import com.nttdata.bootcamp.client.entity.RequestClientDto;
 import com.nttdata.bootcamp.client.service.IServiceClient;
 
@@ -57,14 +60,14 @@ public class Application {
 	
 	//private final KafkaTemplate<String, String> template;
 	
-	@Component
+	/*@Component
 	class Consumer{
 		
 		@KafkaListener(topics={"client"}, groupId="spring-boot-kafka-client")
-		public void consume(ConsumerRecord<String, String> record)
+		public void consume(ConsumerRecord<String, String> record) throws JsonMappingException, JsonProcessingException
 		{
 			System.out.println("received = " + record.value() + " con key " + record.key());
-			/*var arrayIds = record.key().split(",");
+			var arrayIds = record.key().split(",");
 			RequestClientDto request = new RequestClientDto();
 			if(record.value().equals("UCD"))
 			{
@@ -101,9 +104,9 @@ public class Application {
 				serviceClient.clientDelete(arrayIds[0]).doOnSuccess(value-> {
 					log.info("Se eliminó el cliente con id: " + arrayIds[0]);
 				}).block();
-			}*/
+			}
 		}
-	}
+	}*/
 	
 	/*@Component
 	class Processor
