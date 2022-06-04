@@ -44,7 +44,7 @@ public class ControllerClient {
 	public Flux<Client> getAll()
 	{
 		log.info("Entrando al metodo getAll en el controller client ");
-		//return Flux.just(serviceClient.clientFindAll().toStream().collect(Collectors.toList()));
+		//return Flux.just(serviceClient.clientFindAlgetReceiverl().toStream().collect(Collectors.toList()));
 		return serviceClient.clientFindAll();
 	}
 	

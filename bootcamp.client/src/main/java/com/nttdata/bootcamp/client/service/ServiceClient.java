@@ -72,15 +72,15 @@ public class ServiceClient implements IServiceClient {
 	public Mono<Client> clientFindSingleReceiver(String destination) {
 		// TODO Auto-generated method stub
 		return clientdao.findAll().filter(value-> value.getDetail().stream().filter(valueDetail-> 
-			valueDetail.getBank_account().equals(destination)
-			|| valueDetail.getIddetail().equals(destination)).count()>0).singleOrEmpty();
+			(valueDetail.getBank_account().equals(destination)
+			|| valueDetail.getIddetail().equals(destination))&&!valueDetail.getCredit_card().equals("-")).count()>0).singleOrEmpty();
 	}
 	
 	private Flux<Client> clientFindReceiver(String destination) {
 		// TODO Auto-generated method stub
 		return clientdao.findAll().filter(value-> value.getDetail().stream().filter(valueDetail-> 
-			valueDetail.getBank_account().equals(destination)
-			|| valueDetail.getIddetail().equals(destination)).count()>0);
+				(valueDetail.getBank_account().equals(destination)
+				|| valueDetail.getIddetail().equals(destination))&&!valueDetail.getCredit_card().equals("-")).count()>0);
 	}
 	
 	@CircuitBreaker(name = "myCircuitBreaker", fallbackMethod = "fallbacksave")
