@@ -12,7 +12,7 @@ public class MongoDBConfig {
     @Autowired
     private MappingMongoConverter mappingMongoConverter;
 
-    // remove _class
+    // remove _class into mongodb
     @PostConstruct
     public void setUpMongoEscapeCharacterConversion() {
         mappingMongoConverter.setTypeMapper(new DefaultMongoTypeMapper(null));
